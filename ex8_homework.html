@@ -38,16 +38,18 @@
 
       .box2 {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        top: 380px;
+        left: 780px;
         width: 20px;
         height: 20px;
-        background-color: rgb(216, 100, 100);
+        background-color: rgb(240, 199, 86);
         border-radius: 100px;
       }
     </style>
   </head>
   <body>
+    <h1 class="mt-5" style="text-align: center">Catch me if you can!</h1>
+
     <div class="wrap mx-auto mt-5">
       <div class="box"></div>
       <div class="box2"></div>
@@ -79,21 +81,21 @@
       <!-- 右邊 -->
       <div class="py-3 text-center" style="margin-left: 75%">
         <div class="py-1">
-          <button class="btn btn-info" id="up">u</button>
+          <button class="btn btn-warning" id="up">u</button>
         </div>
 
         <div>
-          <button class="btn btn-info" id="left" style="margin-right: 20px">
+          <button class="btn btn-warning" id="left" style="margin-right: 20px">
             <
           </button>
 
-          <button class="btn btn-info" id="right" style="margin-left: 20px">
+          <button class="btn btn-warning" id="right" style="margin-left: 20px">
             >
           </button>
         </div>
 
         <div class="py-1">
-          <button class="btn btn-info" id="down">d</button>
+          <button class="btn btn-warning" id="down">d</button>
         </div>
       </div>
       <!-- 右邊結束 -->
@@ -104,53 +106,74 @@
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
       crossorigin="anonymous"
     ></script>
-    <!-- <script>
-      $("#right").click(function () {
-        $(".box2").css("margin-left", "+=20");
-      });
 
-      $("#left").click(function () {
-        $(".box2").css("margin-left", "-=20");
-      });
-
-      $("#down").click(function () {
-        $(".box2").css("margin-top", "+=20");
-      });
-
-      $("#up").click(function () {
-        $(".box2").css("margin-top", "-=20");
-      });
-    </script> -->
-
+    <!-- 右邊玩家 -->
     <script>
       $(document).on("keydown", function (e) {
         // console.log("event:", e);看鍵盤號碼
-        let code = e.which;
+        let code2 = e.which;
         let newLeft = parseInt($(".box2").css("margin-left"));
         let newTop = parseInt($(".box2").css("margin-top"));
 
         // 左
-        if (code === 37) {
-          if (newLeft < 780) {
-            $(".box2").css("margin-right", "+=20");
+        if (code2 === 37) {
+          if (newLeft > -780) {
+            $(".box2").css("margin-left", "-=20");
           }
           // 上
-        } else if (code === 38) {
-          if (newTop < 380) {
-            $(".box2").css("margin-bottom", "+=20");
+        } else if (code2 === 38) {
+          if (newTop > -380) {
+            $(".box2").css("margin-top", "-=20");
           }
           // 右
-        } else if (code === 39) {
+        } else if (code2 === 39) {
           if (newLeft < 0) {
-            $(".box2").css("margin-right", "-=20");
+            $(".box2").css("margin-left", "+=20");
           }
           // 下
-        } else if (code === 40) {
+        } else if (code2 === 40) {
           if (newTop < 0) {
-            $(".box2").css("margin-bottom", "-=20");
+            $(".box2").css("margin-top", "+=20");
           }
         }
+
+        pass();
       });
+    </script>
+
+    <!-- 左邊玩家 -->
+    <script>
+      $(document).on("keydown", function (e) {
+        // console.log("event:", e);看鍵盤號碼
+        let code = e.which;
+        let newLeft = parseInt($(".box").css("margin-left"));
+        let newTop = parseInt($(".box").css("margin-top"));
+
+        if (code === 90) {
+          if (newLeft > 0) {
+            $(".box").css("margin-left", "-=20");
+          }
+        } else if (code === 83) {
+          if (newTop > 0) {
+            $(".box").css("margin-top", "-=20");
+          }
+        } else if (code === 67) {
+          if (newLeft < 800 - 20) {
+            $(".box").css("margin-left", "+=20");
+          }
+        } else if (code === 88) {
+          if (newTop < 400 - 20) {
+            $(".box").css("margin-top", "+=20");
+          }
+        }
+
+        pass();
+      });
+
+      function pass() {
+        console.log("hi");
+        console.log("preese");
+      }
     </script>
   </body>
 </html>
