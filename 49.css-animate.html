@@ -34,7 +34,7 @@
   </head>
   <body>
     <div class="wrap">
-      <button>bonce</button>
+      <button>bounce</button>
       <button>shakeX</button>
       <div class="box animate__animated"></div>
     </div>
@@ -46,8 +46,13 @@
     ></script>
     <script>
       $("button").click(function () {
+        let animate = "animate__" + $(this).text();
 
-        $(".box").toggleClass("animate__" + ???);
+        $(".box")
+          .addClass(animate)
+          .one("animationend", function () {
+            $(this).removeClass(animate);
+          });
       });
     </script>
   </body>
