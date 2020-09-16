@@ -112,28 +112,28 @@
       $(document).on("keydown", function (e) {
         // console.log("event:", e);看鍵盤號碼
         let code2 = e.which;
-        let newLeft = parseInt($(".box2").css("margin-left"));
-        let newTop = parseInt($(".box2").css("margin-top"));
+        let newLeft = parseInt($(".box2").css("left"));
+        let newTop = parseInt($(".box2").css("top"));
 
         // 左
         if (code2 === 37) {
-          if (newLeft > -780) {
-            $(".box2").css("margin-left", "-=20");
+          if (newLeft > 0) {
+            $(".box2").css("left", "-=20");
           }
           // 上
         } else if (code2 === 38) {
-          if (newTop > -380) {
-            $(".box2").css("margin-top", "-=20");
+          if (newTop > 0) {
+            $(".box2").css("top", "-=20");
           }
           // 右
         } else if (code2 === 39) {
-          if (newLeft < 0) {
-            $(".box2").css("margin-left", "+=20");
+          if (newLeft < 780) {
+            $(".box2").css("left", "+=20");
           }
           // 下
         } else if (code2 === 40) {
-          if (newTop < 0) {
-            $(".box2").css("margin-top", "+=20");
+          if (newTop < 380) {
+            $(".box2").css("top", "+=20");
           }
         }
 
@@ -146,33 +146,31 @@
       $(document).on("keydown", function (e) {
         // console.log("event:", e);看鍵盤號碼
         let code = e.which;
-        let newLeft = parseInt($(".box").css("margin-left"));
-        let newTop = parseInt($(".box").css("margin-top"));
+        let newLeft = parseInt($(".box").css("left"));
+        let newTop = parseInt($(".box").css("top"));
 
         if (code === 90) {
           if (newLeft > 0) {
-            $(".box").css("margin-left", "-=20");
+            $(".box").css("left", "-=20");
           }
         } else if (code === 83) {
           if (newTop > 0) {
-            $(".box").css("margin-top", "-=20");
+            $(".box").css("top", "-=20");
           }
         } else if (code === 67) {
           if (newLeft < 800 - 20) {
-            $(".box").css("margin-left", "+=20");
+            $(".box").css("left", "+=20");
           }
         } else if (code === 88) {
           if (newTop < 400 - 20) {
-            $(".box").css("margin-top", "+=20");
+            $(".box").css("top", "+=20");
           }
-        }
-
-        pass();
+        }        
       });
 
-      function pass() {
-        console.log("hi");
-        console.log("preese");
+      function pass() {       
+        console.log($(".box2",).css("top")); 
+        console.log($(".box2").css("left"));
       }
     </script>
   </body>
