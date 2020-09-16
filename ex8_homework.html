@@ -143,6 +143,7 @@
 
     <!-- 左邊玩家 -->
     <script>
+      let isGameover = false;
       $(document).on("keydown", function (e) {
         // console.log("event:", e);看鍵盤號碼
         let code = e.which;
@@ -165,13 +166,29 @@
           if (newTop < 400 - 20) {
             $(".box").css("top", "+=20");
           }
-        }        
+        }
       });
 
-      function pass() {       
-        console.log($(".box2",).css("top")); 
-        console.log($(".box2").css("left"));
+      function pass() {
+        // console.log($(".box").css("top"));
+        // console.log($(".box").css("left"));
+        // console.log($(".box2").css("top"));
+        // console.log($(".box2").css("left"));
+        if (
+          $(".box").css("top") == $(".box2").css("top") &&
+          $(".box").css("left") == $(".box2").css("left") &&
+          !isGameover
+        ) {
+          setTimeout(() => {
+            alert("The right is Win~");
+          }, 100);
+          isGameover = true;
+        }
       }
+
+      // var intervalID = setInterval(function () {
+      //   alert("The left is Win~");
+      // }, 2000);
     </script>
   </body>
 </html>
