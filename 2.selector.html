@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>selector</title>
+  </head>
+  <body>
+    <button class="btn-primy">btn1</button>
+    <button id="btnID" class="btn btn-primy">btn2</button>
+    <button id="btnID" class="btn btn-primy">btn3</button>
+
+    <a href="https://google.com">google</a>
+    <a href="https://yahoo.com.tw">yahoo</a>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("button").css("background", "red");
+      $(".btn").css("background", "lightblue");
+      $("#btnID").css("background", "blue");
+      $("a[href='https://yahoo.com.tw']").css("background", "hotpink")
+    </script>
+  </body>
+</html>

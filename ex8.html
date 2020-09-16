@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>方塊</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      .wrap {
+        position: relative;
+        width: 800px;
+        height: 400px;
+        background-color: #eee;
+      }
+
+      .box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 120px;
+        height: 120px;
+        background-color: lightseagreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap mx-auto">
+      <div class="box"></div>
+    </div>
+
+    <div class="py-3 text-center">
+      <div class="py-1">
+        <button class="btn btn-info" id="up">u</button>
+      </div>
+
+      <div>
+        <button class="btn btn-info" id="left" style="margin-right: 20px">
+          <
+        </button>
+        <button class="btn btn-info" id="right" style="margin-left: 20px">
+          >
+        </button>
+      </div>
+
+      <div class="py-1">
+        <button class="btn btn-info" id="down">d</button>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("#right").click(function () {
+        $(".box").css("margin-left", "+=20");
+      });
+
+      $("#left").click(function () {
+        $(".box").css("margin-left", "-=20");
+      });
+
+      $("#down").click(function () {
+        $(".box").css("margin-top", "+=20");
+      });
+
+      $("#up").click(function () {
+        $(".box").css("margin-top", "-=20");
+      });
+    </script>
+
+<script>
+    $(document).on("keydown", function (e) {
+      // console.log("event:", e);看鍵盤號碼
+      let code = e.which;
+      let newLeft = parseInt($(".box").css("margin-left"));
+      let newTop = parseInt($(".box").css("margin-top"));
+
+      if (code === 37) {
+        if (newLeft > 0) {$(".box").css("margin-left", "-=20");}
+
+      } else if (code === 38) {
+        if (newTop > 0) {$(".box").css("margin-top", "-=20");}   
+
+      } else if (code === 39) {
+        if (newLeft < 800-120) {$(".box").css("margin-left", "+=20");}
+
+      } else if (code === 40) {
+        if (newTop < 400-120) {$(".box").css("margin-top", "+=20");}
+        
+      }
+    });
+  </script>
+  </body>
+</html>
