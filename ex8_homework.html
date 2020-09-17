@@ -57,7 +57,7 @@
 
     <div class="wrap2 d-flex">
       <!-- 左邊 -->
-      <div class="py-3 text-center ml-5">
+      <div class="py-3 text-center" style="margin-left: 6%">
         <div class="py-1">
           <button class="btn btn-info" id="S">S</button>
         </div>
@@ -187,7 +187,10 @@
       }
 
       var intervalID = setInterval(function () {
-        alert("The left is Win~");
+        if(!isGameover){
+          alert("The left is Win~");
+          isGameover = true;
+        }
       }, 20000);
     </script>
   </body>
