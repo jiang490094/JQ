@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>instagram</title>
+    <title>instagram_my</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./52.instagram.css" />
+    <link rel="stylesheet" href="./52.instagram_my.css" />
   </head>
   <body>
     <header>
@@ -45,7 +45,7 @@
           </div>
           <div class="personal-info-area col-4">
             <div class="first-row">
-              <span class="username" style="font-size: 26px;">gqtaiwan</span>
+              <span class="username" style="font-size: 26px">gqtaiwan</span>
               <span class="check"></span>
               <a href="" class="btn btn-primary">追蹤</a>
             </div>
@@ -68,11 +68,39 @@
               <p class="user-fullname font-weight-bold mb-0">GQ Taiwan</p>
               <p class="info-text">
                 To become a better man, follow GQ Taiwan. 更多精彩內容請至
-                <br>
+                <br />
                 <a href="#">gq.com.tw/instagram</a>
               </p>
             </div>
           </div>
+        </div>
+        <div class="row hightlight justify-content-around"></div>
+
+        <div class="row justify-content-center">
+          <div class="pageLink small font-weight-bold">貼文</div>
+          <div class="pageLink small font-weight-bold">IGTV</div>
+          <div class="pageLink small font-weight-bold">已標註</div>
+        </div>
+
+        <div class="row content-area">
+          <!-- <div class="col-4 position-relative overflow-hidden p-4">
+            <img
+              src="https://instagram.ftpe7-4.fna.fbcdn.net/v/t51.2885-15/fr/e15/s1080x1080/119459958_170285457935801_2553482051621743888_n.jpg?_nc_ht=instagram.ftpe7-4.fna.fbcdn.net&_nc_cat=105&_nc_ohc=orxpPjLZOywAX-H5jtR&oh=95b46a1f408ac924369f0ed2836a1b96&oe=5F8D0951"
+              alt=""
+            />
+          </div>
+          <div class="col-4 position-relative overflow-hidden p-4">
+            <img
+              src="https://instagram.ftpe7-4.fna.fbcdn.net/v/t51.2885-15/fr/e15/s1080x1080/119459958_170285457935801_2553482051621743888_n.jpg?_nc_ht=instagram.ftpe7-4.fna.fbcdn.net&_nc_cat=105&_nc_ohc=orxpPjLZOywAX-H5jtR&oh=95b46a1f408ac924369f0ed2836a1b96&oe=5F8D0951"
+              alt=""
+            />
+          </div>
+          <div class="col-4 position-relative overflow-hidden p-4">
+            <img
+              src="https://instagram.ftpe7-4.fna.fbcdn.net/v/t51.2885-15/fr/e15/s1080x1080/119459958_170285457935801_2553482051621743888_n.jpg?_nc_ht=instagram.ftpe7-4.fna.fbcdn.net&_nc_cat=105&_nc_ohc=orxpPjLZOywAX-H5jtR&oh=95b46a1f408ac924369f0ed2836a1b96&oe=5F8D0951"
+              alt=""
+            />
+          </div> -->
         </div>
       </div>
     </main>
@@ -83,12 +111,69 @@
     ></script>
     <script>
       $.ajax({
-        url: "https://www.instagram.com/gqtaiwan/?__a=1",
+        url: "http://192.168.27.35:3000/ig2",
       }).done(function (result) {
-        console.log("user_img", result.graphql.user.profile_pic_url_hd);
+        console.log("result", result.data.user.edge_highlight_reels.edges);
 
-        let userPic = result.graphql.user.profile_pic_url_hd;
-        $(".personal-img img").attr("src", userPic);
+        let highlightArray = result.data.user.edge_highlight_reels.edges;
+        for (let i = 0; i < highlightArray.length; i++) {
+          let htmlString = `<div class="circle">
+          <img
+            src="${highlightArray[i].node.cover_media_cropped_thumbnail.url}"
+            alt=""
+          />
+          <p class="font-weight-bold mt-2 text-center small">${highlightArray[i].node.title}</p>
+        </div>`;
+
+          $(".hightlight").append(htmlString);
+        }
+
+        // let highlightArray = result.graphql.user.edge_highlight_reels.edges;
+
+        // for (i=0; i < highlightArray.length; i++){
+        //     $('.highlight').append('<div class="circle">
+        //       <img src="url" alt="">
+        //       <p>title</p>
+        //   </div>')
+
+        // }
+
+        // let userPic = result.graphql.user.profile_pic_url_hd;
+      });
+        $.ajax({
+        url: "http://192.168.27.35:3000/ig3",
+      }).done(function (result) {
+        console.log(
+          "result",
+          result.data.user.edge_owner_to_timeline_media.edges
+        );
+
+        let articleArray = result.data.user.edge_owner_to_timeline_media.edges;
+
+        for (let i = 0; i < articleArray.length; i++) {
+          let htmlString = `<div class="col-4 position-relative overflow-hidden p-4">
+            <img
+              src="${articleArray[i].node.display_url}"
+              alt=""
+            />
+          </div>`;
+
+          $(".content-area").append(htmlString);
+        }
+
+        // let highlightArray = result.graphql.user.edge_highlight_reels.edges;
+
+        // for (i=0; i < highlightArray.length; i++){
+        //     $('.highlight').append('<div class="circle">
+        //       <img src="url" alt="">
+        //       <p>title</p>
+        //   </div>')
+
+        // }
+
+        // let userPic = result.graphql.user.profile_pic_url_hd;
+
+        //   $(".personal-img img").attr("src", userPic);
       });
     </script>
 

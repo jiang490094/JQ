@@ -1,14 +1,11 @@
-*{
-  margin: 0px;
-  padding: 0px;
-}
-
 header {
   position: fixed;
   width: 100%;
   height: 54px;
   border-bottom: 1px solid #ccc;
   padding: 10px;
+  background-color: #fff;
+  z-index: 1;
 }
 
 main {
@@ -38,4 +35,38 @@ span.check {
   background-image: url("https://www.instagram.com/static/bundles/es6/sprite_core_32f0a4f27407.png/32f0a4f27407.png");
   background-position: 0 -369px;
   background-repeat: no-repeat;
+}
+
+.hightlight {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #ccc;
+}
+
+.circle {
+  width: 77px;
+  height: 77px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #ccc inset;
+}
+
+.circle img {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  transform: translate(5%, 5%);
+}
+
+.pageLink {
+  text-align: center;
+  width: 40px;
+  margin: -1px 40px;
+  padding-top: 20px;
+  border-top: 1px solid #000;
+}
+
+.content-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

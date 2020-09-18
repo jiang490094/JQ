@@ -56,3 +56,17 @@ span.check {
   border-radius: 50%;
   transform: translate(5%, 5%);
 }
+
+.pageLink {
+  text-align: center;
+  width: 40px;
+  margin: -1px 40px;
+  padding-top: 20px;
+  border-top: 1px solid #000;
+}
+
+.content-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
