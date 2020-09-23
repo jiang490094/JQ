@@ -16,8 +16,24 @@
         width: 800px;
         height: 400px;
         background-color: #eee;
-        margin-bottom: 10vh;
+        /* margin-bottom: 10vh; */
         border-radius: 15px;
+      }
+
+      /* 時鐘 */
+      .timer-container {
+        width: 300px;
+        border: 1px, solid, grey;
+        margin-left: 20%;
+        /* margin-left: calc(50% - 150px); */
+      }
+      /* 時鐘結束 */
+
+      .wrap3 {
+        text-align: center;
+        position: relative;
+        width: 800px;
+        margin: 5vh;
       }
 
       .wrap2 {
@@ -50,10 +66,41 @@
   <body>
     <h1 class="mt-5" style="text-align: center">Catch me if you can!</h1>
 
+    <!-- 時鐘 -->
+    <div class="timer-container text-center mt-4">
+      <h4 class="border-bottom px-3" id="showtimer">0:00sec</h4>
+      <div class="row">
+        <input type="number" id="timerInput" value="0" hidden />
+        <div class="col btn btn-primary mx-1" id="10sec">10sec</div>
+        <div class="col btn btn-primary" id="30sec">30sec</div>
+        <div class="col btn btn-primary ml-1" id="1min">1min</div>
+        <div class="col btn btn-primary mx-1" id="5min">5min</div>
+        <div class="mt-2 row mx-0">
+          <button type="button" id="starttimer" class="btn btn-outline-success">
+            Start
+          </button>
+          <button
+            type="button"
+            id="stoptimer"
+            class="btn btn-outline-secondary"
+          >
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- 時鐘結束 -->
+
     <div class="wrap mx-auto mt-5">
       <div class="box"></div>
       <div class="box2"></div>
     </div>
+
+    <!-- 開始/暫停鍵 -->
+    <div class="wrap3 mx-auto mt-5">
+      <button class="btn btn-primary btn-lg start">開始</button>
+    </div>
+    <!-- 開始/暫停鍵結束 -->
 
     <div class="wrap2 d-flex">
       <!-- 左邊 -->
@@ -186,12 +233,109 @@
         }
       }
 
-      var intervalID = setInterval(function () {
-        if(!isGameover){
-          alert("The left is Win~");
-          isGameover = true;
+      // 開始鍵相關功能
+      $(".start").click(function () {
+        let a = $(".start").text();
+        console.log(a);
+        if (a == "開始") {
+          $(".start")
+            .text("暫停")
+            .css("background-color", "orange")
+            .css("border", "orange");
+        } else {
+          $(".start").text("開始").css("background-color", "#007bff");
         }
-      }, 20000);
+      });
+      // 時鐘
+      let stoptimer = document.getElementById("stoptimer");
+      stoptimer.style.display = "none";
+      let timer = document.getElementById("timerInput");
+      let starttimer = document.getElementById("starttimer");
+      let addSec2 = document.getElementById("10sec");
+      let addSec = document.getElementById("30sec");
+      let addSecMin = document.getElementById("1min");
+      let addSecMin2 = document.getElementById("5min");
+      let showtimer = document.getElementById("showtimer");
+      addSec.addEventListener("click", () => {
+        if (timer.value !== 0) {
+          timer.value = Number(timer.value) + 30;
+          showtimer.innerHTML = timer.value.toString();
+          checkforvalue();
+        } else {
+          timer.value = 30;
+        }
+      });
+      addSec2.addEventListener("click", () => {
+        if (timer.value !== 0) {
+          timer.value = Number(timer.value) + 10;
+          showtimer.innerHTML = timer.value.toString();
+          checkforvalue();
+        } else {
+          timer.value = 10;
+        }
+      });
+      addSecMin.addEventListener("click", () => {
+        if (timer.value !== 0) {
+          timer.value = Number(timer.value) + 60;
+          showtimer.innerHTML = timer.value.toString();
+          checkforvalue();
+        } else {
+          timer.value = 60;
+        }
+      });
+      addSecMin2.addEventListener("click", () => {
+        if (timer.value !== 0) {
+          timer.value = Number(timer.value) + 300;
+          showtimer.innerHTML = timer.value.toString();
+          checkforvalue();
+        } else {
+          timer.value = 300;
+        }
+      });
+      let runtimer;
+      let runtimerFunction = (start) => {
+        if (start) {
+          runtimer = setInterval(() => {
+            timer.value -= 1;
+            showtimer.innerHTML = timer.value.toString();
+            checkforvalue();
+            if (timer.value == 0) {
+              alert("Timer has finished!");
+              clearInterval(runtimer);
+            }
+          }, 1000);
+        } else {
+          clearInterval(runtimer);
+        }
+      };
+      starttimer.addEventListener("click", () => {
+        if (Number(timer.value) !== 0) {
+          runtimerFunction(true);
+          starttimer.style.display = "none";
+          stoptimer.style.display = "block";
+          showtimer.innerHTML = "0:00min";
+        }
+      });
+      stoptimer.addEventListener("click", () => {
+        runtimerFunction(false);
+        starttimer.style.display = "block";
+        stoptimer.style.display = "none";
+      });
+      let checkforvalue = () => {
+        for (let i = 0; i < 30; i++) {
+          if (timer.value > 59 * i) {
+            showtimer.innerHTML = i + ":" + (timer.value - 60 * i) + "min";
+          }
+        }
+      };
+      // 時鐘結束
+
+      // var intervalID = setInterval(function () {
+      //   if(!isGameover){
+      //     alert("The left is Win~");
+      //     isGameover = true;
+      //   }
+      // }, 20000);
     </script>
   </body>
 </html>
