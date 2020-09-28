@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>music</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-    <div class="start btn btn-info btn-lg">開始</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <audio
+      id="music2"
+      src="Pac-man theme remix - By Arsenic1987.mp3"
+      loop="loop"
+    >
+    </audio>
+    <a href="javascript:playPause();"
+      ><img src="/imgs/._person1.jpg" width="48" height="50" id="music_btn2"
+      border="0" /></a
+    >
 
-    <audio controls>
-        <source src="Pac-man theme remix - By Arsenic1987.mp3" type="audio/mpeg">
-      </audio>
+    <a href="javascript:playPause();">
+        <div class="btn btn-info btn-lg" id="music_btn2">開始</div>
+    </a> 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script>
-        
+              function playPause() {
+          var music = document.getElementById('music2');
+          var music_btn = document.getElementById('music_btn2');
+          if (music.paused){
+              music.play();
+              music_btn.src = 'imgs/._person1.jpg';
+          }
+          else{function playPause() {    
+    var music = document.getElementById('music2');    
+    var music_btn = document.getElementById('music_btn2');    
+    if (music.paused){    
+        music.play();    
+        music_btn.src = 'imgs/._person1.jpg';    
+    }    
+    else{    
+        music.pause();    
+        music_btn.src = 'imgs/._person2.jpg';     
+    }    
+}   
+              music.pause();
+              music_btn.src = 'imgs/._person2.jpg';
+          }
+      }
     </script>
-</body>
+  </body>
 </html>
