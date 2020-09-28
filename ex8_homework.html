@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>方塊</title>
+    <title>Pac man</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.0/moment.min.js"></script>
     <style>
       .wrap {
         position: relative;
@@ -20,20 +21,11 @@
         border-radius: 15px;
       }
 
-      /* 時鐘 */
-      .timer-container {
-        width: 300px;
-        border: 1px, solid, grey;
-        margin-left: 20%;
-        /* margin-left: calc(50% - 150px); */
-      }
-      /* 時鐘結束 */
-
-      .wrap3 {
+      .btn_wrap {
         text-align: center;
         position: relative;
         width: 800px;
-        margin: 5vh;
+        margin: 3vh;
       }
 
       .wrap2 {
@@ -61,46 +53,45 @@
         background-color: rgb(240, 199, 86);
         border-radius: 100px;
       }
+
+      .countdown {
+        width: 250px;
+        height: 100px;
+        background: white;
+        font-size: 2em;
+        color: #fff;
+
+        /* Centering everything */
+        position: absolute;
+        left: 10%;
+        top: 20%;
+        margin-left: -125px;
+        margin-top: -50px;
+
+        text-align: center;
+        line-height: 100px;
+
+        border: 5px solid #e54b6a42;
+        border-bottom: 5px solid #e54b6a42;
+        background-image: linear-gradient(#bfeafd, rgb(250, 200, 170));
+        border-radius: 15px;
+      }
     </style>
   </head>
   <body>
     <h1 class="mt-5" style="text-align: center">Catch me if you can!</h1>
 
-    <!-- 時鐘 -->
-    <div class="timer-container text-center mt-4">
-      <h4 class="border-bottom px-3" id="showtimer">0:00sec</h4>
-      <div class="row">
-        <input type="number" id="timerInput" value="0" hidden />
-        <div class="col btn btn-primary mx-1" id="10sec">10sec</div>
-        <div class="col btn btn-primary" id="30sec">30sec</div>
-        <div class="col btn btn-primary ml-1" id="1min">1min</div>
-        <div class="col btn btn-primary mx-1" id="5min">5min</div>
-        <div class="mt-2 row mx-0">
-          <button type="button" id="starttimer" class="btn btn-outline-success">
-            Start
-          </button>
-          <button
-            type="button"
-            id="stoptimer"
-            class="btn btn-outline-secondary"
-          >
-            Stop
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- 時鐘結束 -->
+    <div class="countdown">20 sec</div>
 
     <div class="wrap mx-auto mt-5">
       <div class="box"></div>
       <div class="box2"></div>
     </div>
 
-    <!-- 開始/暫停鍵 -->
-    <div class="wrap3 mx-auto mt-5">
-      <button class="btn btn-primary btn-lg start">開始</button>
+    <div class="btn_wrap mx-auto mt-5">
+      <button class="start btn btn-primary btn-lg">開始</button>
+      <!-- <button class="btn btn-primary">暫停</button> -->
     </div>
-    <!-- 開始/暫停鍵結束 -->
 
     <div class="wrap2 d-flex">
       <!-- 左邊 -->
@@ -153,6 +144,62 @@
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
       crossorigin="anonymous"
     ></script>
+
+    <!-- 開始鍵相關功能 -->
+    <script>
+      // 倒數相關
+      var duration = moment.duration({
+        //   'minutes': 5,
+        seconds: 22,
+      });
+      var timestamp = new Date(0, 0, 0, 1, 10, 30);
+      var interval = 1;
+      // 倒數相關結束
+
+      $(".start").click(function () {
+        let a = $(".start").text();
+        // console.log(a);
+        if (a == "開始") {
+          $(".start").text("人參4沒有暫停這回事der");
+          $(".start").css("background", "orange").css("border", "orange");
+
+          // 倒數計時器
+          var timer = setInterval(function () {
+            timestamp = new Date(timestamp.getTime() + interval * 1000);
+
+            duration = moment.duration(
+              duration.asSeconds() - interval,
+              "seconds"
+            );
+            var min = duration.minutes();
+            var sec = duration.seconds();
+
+            sec -= 1;
+            if (min < 0) return clearInterval(timer);
+            if (min < 10 && min.length != 2) min = "0" + min;
+            if (sec < 0 && min != 0) {
+              min -= 1;
+              sec = 59;
+            } else if (sec < 10 && sec.length != 2) sec = "0" + sec;
+
+            $(".countdown").text(sec + "  " + "sec");
+            if (sec == 0) clearInterval(timer);
+            if (sec == 0)
+              setInterval(function () {
+                if (!isGameover) {
+                  alert("The left is Win~");
+                  isGameover = true;
+                }
+                location.reload();
+              }, 100);              
+          }, 1000);
+          // 倒數計時器結束        
+        } else {
+          $(".start").text("開始");
+          $(".start").css("background", "#007bff");
+        }
+      });
+    </script>
 
     <!-- 右邊玩家 -->
     <script>
@@ -228,114 +275,23 @@
         ) {
           setTimeout(() => {
             alert("The right is Win~");
-          }, 100);
+            location.reload();
+          },          
+          100);
           isGameover = true;
-        }
+        }        
       }
 
-      // 開始鍵相關功能
-      $(".start").click(function () {
-        let a = $(".start").text();
-        console.log(a);
-        if (a == "開始") {
-          $(".start")
-            .text("暫停")
-            .css("background-color", "orange")
-            .css("border", "orange");
-        } else {
-          $(".start").text("開始").css("background-color", "#007bff");
-        }
-      });
-      // 時鐘
-      let stoptimer = document.getElementById("stoptimer");
-      stoptimer.style.display = "none";
-      let timer = document.getElementById("timerInput");
-      let starttimer = document.getElementById("starttimer");
-      let addSec2 = document.getElementById("10sec");
-      let addSec = document.getElementById("30sec");
-      let addSecMin = document.getElementById("1min");
-      let addSecMin2 = document.getElementById("5min");
-      let showtimer = document.getElementById("showtimer");
-      addSec.addEventListener("click", () => {
-        if (timer.value !== 0) {
-          timer.value = Number(timer.value) + 30;
-          showtimer.innerHTML = timer.value.toString();
-          checkforvalue();
-        } else {
-          timer.value = 30;
-        }
-      });
-      addSec2.addEventListener("click", () => {
-        if (timer.value !== 0) {
-          timer.value = Number(timer.value) + 10;
-          showtimer.innerHTML = timer.value.toString();
-          checkforvalue();
-        } else {
-          timer.value = 10;
-        }
-      });
-      addSecMin.addEventListener("click", () => {
-        if (timer.value !== 0) {
-          timer.value = Number(timer.value) + 60;
-          showtimer.innerHTML = timer.value.toString();
-          checkforvalue();
-        } else {
-          timer.value = 60;
-        }
-      });
-      addSecMin2.addEventListener("click", () => {
-        if (timer.value !== 0) {
-          timer.value = Number(timer.value) + 300;
-          showtimer.innerHTML = timer.value.toString();
-          checkforvalue();
-        } else {
-          timer.value = 300;
-        }
-      });
-      let runtimer;
-      let runtimerFunction = (start) => {
-        if (start) {
-          runtimer = setInterval(() => {
-            timer.value -= 1;
-            showtimer.innerHTML = timer.value.toString();
-            checkforvalue();
-            if (timer.value == 0) {
-              alert("Timer has finished!");
-              clearInterval(runtimer);
-            }
-          }, 1000);
-        } else {
-          clearInterval(runtimer);
-        }
-      };
-      starttimer.addEventListener("click", () => {
-        if (Number(timer.value) !== 0) {
-          runtimerFunction(true);
-          starttimer.style.display = "none";
-          stoptimer.style.display = "block";
-          showtimer.innerHTML = "0:00min";
-        }
-      });
-      stoptimer.addEventListener("click", () => {
-        runtimerFunction(false);
-        starttimer.style.display = "block";
-        stoptimer.style.display = "none";
-      });
-      let checkforvalue = () => {
-        for (let i = 0; i < 30; i++) {
-          if (timer.value > 59 * i) {
-            showtimer.innerHTML = i + ":" + (timer.value - 60 * i) + "min";
-          }
-        }
-      };
-      // 時鐘結束
-
+      // let a = $(".start").text();
       // var intervalID = setInterval(function () {
-      //   if(!isGameover){
+      //   if(!isGameover && a == "人參4沒有暫停這回事der"){
       //     alert("The left is Win~");
       //     isGameover = true;
       //   }
-      // }, 20000);
+      // }, 3000);
     </script>
   </body>
 </html>
+
+
+
